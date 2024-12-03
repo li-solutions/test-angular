@@ -1,0 +1,18 @@
+.main-menu {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.main-menu__link {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.main-menu__link:hover,
+.main-menu__link_active {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
