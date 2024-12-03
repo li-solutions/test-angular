@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { hasRoleGuard } from './has-role.guard';
 import { Role } from './role';
 import { LoginComponent } from './login/login.component';
+import { PageUnavailableComponent } from './page-unavailable/page-unavailable.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -16,6 +17,14 @@ export const routes: Routes = [
       roles: [Role.ADMIN],
     },
   },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [hasRoleGuard],
+    data: {
+      roles: [],
+    },
+  },
+  { path: '403', component: PageUnavailableComponent },
   { path: '**', component: PageNotFoundComponent },
 ];

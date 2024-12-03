@@ -12,10 +12,20 @@
       </li>
       <li>
         <a
+          *ngIf="canAccessDashboard"
           routerLink="dashboard"
           routerLinkActive="main-menu__link_active"
           class="main-menu__link"
           >Dashboard</a
+        >
+      </li>
+      <li>
+        <a
+          *ngIf="canAccessLogin"
+          routerLink="login"
+          routerLinkActive="main-menu__link_active"
+          class="main-menu__link"
+          >Login</a
         >
       </li>
     </ul>
