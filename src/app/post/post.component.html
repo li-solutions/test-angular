@@ -1,0 +1,10 @@
+<div class="container">
+  <div *ngIf="post() === null; else postContent">
+    <p>Loading post...</p>
+  </div>
+
+  <ng-template #postContent>
+    <h1>{{ post()!.title }}</h1>
+    <p>{{ post()!.body }}</p>
+  </ng-template>
+</div>

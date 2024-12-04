@@ -1,0 +1,12 @@
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.post {
+  min-width: 200px;
+  flex: 1;
+}

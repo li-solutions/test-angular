@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../auth.service';
-import { Role } from '../../role';
+import { Constants } from '../../constants';
 
 @Component({
   selector: 'app-nav',
@@ -13,11 +13,11 @@ import { Role } from '../../role';
 export class NavComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  get canAccessDashboard(): boolean {
-    const dashboardRoute = this.router.config.find(
-      (route) => route.path === 'dashboard'
+  get canAccessPosts(): boolean {
+    const postsRoute = this.router.config.find(
+      (route) => route.path === 'posts'
     );
-    const expectedRoles: Role[] = dashboardRoute?.data?.['roles'];
+    const expectedRoles: Constants[] = postsRoute?.data?.['roles'];
 
     return this.authService.hasRole(expectedRoles);
   }

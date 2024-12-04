@@ -1,20 +1,29 @@
 import { Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { PostsComponent } from './posts/posts.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { hasRoleGuard } from './has-role.guard';
-import { Role } from './role';
+import { Constants } from './constants';
 import { LoginComponent } from './login/login.component';
 import { PageUnavailableComponent } from './page-unavailable/page-unavailable.component';
+import { PostComponent } from './post/post.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
+    path: 'posts',
+    component: PostsComponent,
     canActivate: [hasRoleGuard],
     data: {
-      roles: [Role.ADMIN],
+      roles: [Constants.ADMIN],
+    },
+  },
+  {
+    path: 'posts/:id',
+    component: PostComponent,
+    canActivate: [hasRoleGuard],
+    data: {
+      roles: [Constants.ADMIN],
     },
   },
   {

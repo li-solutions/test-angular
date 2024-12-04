@@ -34,7 +34,8 @@
             "prerender": true,
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "externalDependencies":[""]
           },
           "configurations": {
             "production": {
