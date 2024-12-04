@@ -18,3 +18,8 @@ header {
 h1 {
   color: #4287f5;
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+}
