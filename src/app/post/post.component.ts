@@ -47,9 +47,9 @@ export class PostComponent implements OnInit {
     }
 
     this.dataService.getPostById(this.postId).subscribe({
-      next: (data) => {
+      next: (response) => {
         this.loading.set(false);
-        this.post.set(data);
+        this.post.set(response.body);
       },
       error: (error) => {
         this.handleError(error);

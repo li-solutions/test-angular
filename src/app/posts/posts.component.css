@@ -10,3 +10,24 @@
   min-width: 200px;
   flex: 1;
 }
+
+.post__link {
+  color: #4287f5;
+  text-decoration: none;
+}
+
+.post__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.load-more {
+  background: #4287f5;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  min-width: 250px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+}

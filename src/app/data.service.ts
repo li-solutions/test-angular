@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Post } from './types';
+import { Post, SearchParams } from './types';
+import { buildUrlWithParams } from './utils';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +12,15 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(this.postsUrl);
+  getPosts(params: SearchParams = {}): Observable<HttpResponse<Post[]>> {
+    return this.http.get<Post[]>(
+      buildUrlWithParams(this.postsUrl, '', params),
+      { observe: 'response' }
+    );
   }
 
-  getPostById(id: number): Observable<Post> {
+  getPostById(id: number): Observable<HttpResponse<Post>> {
     const url = `${this.postsUrl}/${id}`;
-    return this.http.get<Post>(url);
+    return this.http.get<Post>(url, { observe: 'response' });
   }
 }

@@ -1,31 +1,27 @@
 <div class="container">
   <h1>Posts</h1>
 
-  <div *ngIf="loading(); else resultContent">
-    <p>Loading posts...</p>
+  <div *ngIf="errorMessage() !== null; else resultsContent">
+    <p>{{ errorMessage() }}</p>
   </div>
 
-  <ng-template #resultContent>
-    <div *ngIf="errorMessage() !== null; else postsContent">
-      <p>{{ errorMessage() }}</p>
+  <ng-template #resultsContent>
+    <div *ngIf="posts().length > 0">
+      <ul class="posts">
+        <li *ngFor="let post of posts()" class="post">
+          <a [routerLink]="post.id.toString()" class="post__link">{{
+            post.title
+          }}</a>
+          <p>{{ post.body }}</p>
+        </li>
+      </ul>
+      <div *ngIf="posts().length !== totalCount()">
+        <button (click)="loadMore()" class="load-more">Load More</button>
+      </div>
     </div>
-  </ng-template>
-
-  <ng-template #postsContent>
-    <ul class="posts" *ngIf="posts().length > 0; else noPostsContent">
-      <li *ngFor="let post of posts()" class="post">
-        <a
-          [routerLink]="post.id.toString()"
-          routerLinkActive="main-menu__link_active"
-          class="main-menu__link"
-          >{{ post.title }}</a
-        >
-        <p>{{ post.body }}</p>
-      </li>
-    </ul>
-  </ng-template>
-
-  <ng-template #noPostsContent>
-    <p>No posts available.</p>
+    <p *ngIf="posts().length === 0 && !loading()">No posts available.</p>
+    <div *ngIf="loading()">
+      <p>Loading posts...</p>
+    </div>
   </ng-template>
 </div>
