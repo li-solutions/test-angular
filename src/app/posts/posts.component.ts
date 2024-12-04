@@ -13,18 +13,21 @@ import { Post } from '../types';
 export class PostsComponent implements OnInit {
   posts: WritableSignal<Post[]> = signal([]);
   errorMessage: WritableSignal<string | null> = signal(null);
+  loading: WritableSignal<boolean> = signal(true);
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.dataService.getPosts().subscribe({
-      next: (data) => this.posts.set(data),
-      error: (error) => this.handleError(error),
+      next: (data) => {
+        this.loading.set(false);
+        this.posts.set(data);
+      },
+      error: (error) => {
+        this.loading.set(false);
+        this.errorMessage.set('Failed to load posts');
+        throw error;
+      },
     });
-  }
-
-  private handleError(error: Error): void {
-    this.errorMessage.set('Failed to load posts');
-    throw error;
   }
 }

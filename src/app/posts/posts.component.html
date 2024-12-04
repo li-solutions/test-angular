@@ -1,18 +1,31 @@
 <div class="container">
-  <h1>Dashboard</h1>
-  <ul class="posts" *ngIf="errorMessage() === null; else errorContent">
-    <li *ngFor="let post of posts()" class="post">
-      <a
-        [routerLink]="post.id.toString()"
-        routerLinkActive="main-menu__link_active"
-        class="main-menu__link"
-        >{{ post.title }}</a
-      >
-      <p>{{ post.body }}</p>
-    </li>
-  </ul>
+  <h1>Posts</h1>
 
-  <ng-template #errorContent>
-    <p>{{ errorMessage() }}</p>
+  <div *ngIf="loading(); else resultContent">
+    <p>Loading posts...</p>
+  </div>
+
+  <ng-template #resultContent>
+    <div *ngIf="errorMessage() !== null; else postsContent">
+      <p>{{ errorMessage() }}</p>
+    </div>
+  </ng-template>
+
+  <ng-template #postsContent>
+    <ul class="posts" *ngIf="posts().length > 0; else noPostsContent">
+      <li *ngFor="let post of posts()" class="post">
+        <a
+          [routerLink]="post.id.toString()"
+          routerLinkActive="main-menu__link_active"
+          class="main-menu__link"
+          >{{ post.title }}</a
+        >
+        <p>{{ post.body }}</p>
+      </li>
+    </ul>
+  </ng-template>
+
+  <ng-template #noPostsContent>
+    <p>No posts available.</p>
   </ng-template>
 </div>

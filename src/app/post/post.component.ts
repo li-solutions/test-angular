@@ -20,6 +20,7 @@ export class PostComponent implements OnInit {
   private postId: number | null = null;
   post: WritableSignal<Post | null> = signal(null);
   errorMessage: WritableSignal<string | null> = signal(null);
+  loading: WritableSignal<boolean> = signal(true);
 
   constructor(
     private route: ActivatedRoute,
@@ -46,7 +47,10 @@ export class PostComponent implements OnInit {
     }
 
     this.dataService.getPostById(this.postId).subscribe({
-      next: (data) => this.post.set(data),
+      next: (data) => {
+        this.loading.set(false);
+        this.post.set(data);
+      },
       error: (error) => {
         this.handleError(error);
       },
@@ -54,6 +58,7 @@ export class PostComponent implements OnInit {
   }
 
   private handleError(error: Error): void {
+    this.loading.set(false);
     this.errorMessage.set('Failed to load post');
     throw error;
   }

@@ -1,10 +1,12 @@
 <div class="container">
-  <div *ngIf="post() === null; else postContent">
-    <p *ngIf="errorMessage() === null; else errorContent">Loading post...</p>
+  <div *ngIf="loading(); else resultContent">
+    <p>Loading post...</p>
   </div>
 
-  <ng-template #errorContent>
-    <p>{{ errorMessage() }}</p>
+  <ng-template #resultContent>
+    <div *ngIf="errorMessage() !== null; else postContent">
+      <p>{{ errorMessage() }}</p>
+    </div>
   </ng-template>
 
   <ng-template #postContent>
