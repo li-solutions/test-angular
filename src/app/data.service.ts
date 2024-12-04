@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Post, SearchParams } from './types';
+import { Post, SearchParams, User } from './types';
 import { buildUrlWithParams } from './utils';
 
 @Injectable({
@@ -9,13 +9,24 @@ import { buildUrlWithParams } from './utils';
 })
 export class DataService {
   private postsUrl = 'https://jsonplaceholder.typicode.com/posts';
+  private usersUrl = 'https://jsonplaceholder.typicode.com/users';
 
   constructor(private http: HttpClient) {}
+
+  getUsers(params: SearchParams = {}): Observable<HttpResponse<User[]>> {
+    return this.http.get<User[]>(
+      buildUrlWithParams(this.usersUrl, '', params),
+      { observe: 'response' }
+    );
+  }
 
   getPosts(params: SearchParams = {}): Observable<HttpResponse<Post[]>> {
     return this.http.get<Post[]>(
       buildUrlWithParams(this.postsUrl, '', params),
-      { observe: 'response' }
+      {
+        observe: 'response',
+        transferCache: { includeHeaders: ['X-Total-Count'] },
+      }
     );
   }
 

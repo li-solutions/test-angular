@@ -1,54 +1,108 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DataService } from '../data.service';
 import { NgFor, NgIf } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { Post } from '../types';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Post, User } from '../types';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-posts',
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, RouterLink, FormsModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })
 export class PostsComponent implements OnInit {
   posts: WritableSignal<Post[]> = signal([]);
-  errorMessage: WritableSignal<string | null> = signal(null);
-  loading: WritableSignal<boolean> = signal(true);
-  totalCount: WritableSignal<number> = signal(0);
-  private _start: number = 0;
-  private _limit: number = 20;
+  postsErrorMessage: WritableSignal<string | null> = signal(null);
+  postsAreLoading: WritableSignal<boolean> = signal(true);
+  postsTotalCount: WritableSignal<number> = signal(0);
+  users: WritableSignal<User[]> = signal([]);
+  usersErrorMessage: WritableSignal<string | null> = signal(null);
+  usersAreLoading: WritableSignal<boolean> = signal(true);
+  selectedUserId: WritableSignal<string> = signal('');
+  private postsStartIndex: number = 0;
+  private postsLimit: number = 20;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.fetchPosts();
+    this.route.queryParamMap.subscribe((params) => {
+      const userIdFromUrl = params.get('userId');
+
+      if (userIdFromUrl) {
+        this.selectedUserId.set(userIdFromUrl);
+      }
+    });
+
+    Promise.allSettled([this.fetchPosts(), this.fetchUsers()]);
   }
 
   private fetchPosts() {
-    this.loading.set(true);
+    this.postsAreLoading.set(true);
 
     this.dataService
       .getPosts({
-        _start: this._start.toString(),
-        _limit: this._limit.toString(),
+        _start: this.postsStartIndex.toString(),
+        _limit: this.postsLimit.toString(),
+        userId: this.selectedUserId(),
       })
       .subscribe({
         next: (response) => {
-          this.loading.set(false);
+          this.postsAreLoading.set(false);
           this.posts.set([...this.posts(), ...(response.body ?? [])]);
           const total = response.headers.get('X-Total-Count');
-          this.totalCount.set(total ? +total : 0);
+          this.postsTotalCount.set(total ? +total : 0);
         },
         error: (error) => {
-          this.loading.set(false);
-          this.errorMessage.set('Failed to load posts');
+          this.postsAreLoading.set(false);
+          this.postsErrorMessage.set('Failed to load posts');
           throw error;
         },
       });
   }
 
-  loadMore(): void {
-    this._start += this._limit;
+  loadMorePosts(): void {
+    this.postsStartIndex += this.postsLimit;
     this.fetchPosts();
+  }
+
+  filterPosts(): void {
+    const userId = this.selectedUserId();
+
+    if (userId) {
+      this.router.navigate([], {
+        queryParams: { userId },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.router.navigate([], {
+        queryParams: { userId: null },
+        queryParamsHandling: 'merge',
+      });
+    }
+
+    this.posts.set([]);
+    this.postsStartIndex = 0;
+    this.fetchPosts();
+  }
+
+  private fetchUsers() {
+    this.usersAreLoading.set(true);
+
+    this.dataService.getUsers().subscribe({
+      next: (response) => {
+        this.usersAreLoading.set(false);
+        this.users.set(response.body ?? []);
+      },
+      error: (error) => {
+        this.usersAreLoading.set(false);
+        this.usersErrorMessage.set('Failed to load posts');
+        throw error;
+      },
+    });
   }
 }
