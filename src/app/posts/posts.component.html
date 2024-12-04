@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Dashboard</h1>
-  <ul class="posts">
+  <ul class="posts" *ngIf="errorMessage() === null; else errorContent">
     <li *ngFor="let post of posts()" class="post">
       <a
         [routerLink]="post.id.toString()"
@@ -11,4 +11,8 @@
       <p>{{ post.body }}</p>
     </li>
   </ul>
+
+  <ng-template #errorContent>
+    <p>{{ errorMessage() }}</p>
+  </ng-template>
 </div>

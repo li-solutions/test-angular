@@ -19,6 +19,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PostComponent implements OnInit {
   private postId: number | null = null;
   post: WritableSignal<Post | null> = signal(null);
+  errorMessage: WritableSignal<string | null> = signal(null);
 
   constructor(
     private route: ActivatedRoute,
@@ -28,7 +29,10 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
-      if (!id) throw new Error('No post id');
+      if (!id) {
+        this.handleError(new Error('No post id'));
+        return;
+      }
 
       this.postId = +id;
       this.fetchPost();
@@ -36,11 +40,21 @@ export class PostComponent implements OnInit {
   }
 
   private fetchPost(): void {
-    if (!this.postId) throw new Error('No post id');
+    if (!this.postId) {
+      this.handleError(new Error('No post id'));
+      return;
+    }
 
     this.dataService.getPostById(this.postId).subscribe({
       next: (data) => this.post.set(data),
-      error: (error) => console.error('Error fetching data:', error),
+      error: (error) => {
+        this.handleError(error);
+      },
     });
+  }
+
+  private handleError(error: Error): void {
+    this.errorMessage.set('Failed to load post');
+    throw error;
   }
 }
