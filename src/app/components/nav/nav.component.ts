@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { AuthService } from '../../auth.service';
-import { Constants } from '../../constants';
+import { UserRoles } from '../../constants';
 
 @Component({
   selector: 'app-nav',
@@ -11,18 +11,18 @@ import { Constants } from '../../constants';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
-  get canAccessPosts(): boolean {
+  get canAccessPosts() {
     const postsRoute = this.router.config.find(
       (route) => route.path === 'posts'
     );
-    const expectedRoles: Constants[] = postsRoute?.data?.['roles'];
+    const expectedRoles: UserRoles[] = postsRoute?.data?.['roles'];
 
     return this.authService.hasRole(expectedRoles);
   }
 
-  get canAccessLogin(): boolean {
-    return this.authService.getUserRole() === null;
+  logout() {
+    this.authService.logout();
   }
 }

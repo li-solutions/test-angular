@@ -6,31 +6,34 @@ import { AuthService } from '../auth.service';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   imports: [ReactiveFormsModule, NgIf],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css',
 })
-export class LoginComponent {
+export class RegisterComponent {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
   http = inject(HttpClient);
   router = inject(Router);
+  errorMessage: WritableSignal<string | null> = signal(null);
   form = this.fb.nonNullable.group({
+    username: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-  errorMessage: WritableSignal<string | null> = signal(null);
 
   onSubmit(): void {
     const rawForm = this.form.getRawValue();
-    this.authService.login(rawForm.email, rawForm.password).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/');
-      },
-      error: (error) => {
-        this.errorMessage.set('Failed to login');
-      },
-    });
+    this.authService
+      .register(rawForm.email, rawForm.username, rawForm.password)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/');
+        },
+        error: (error) => {
+          this.errorMessage.set('Failed to register');
+        },
+      });
   }
 }

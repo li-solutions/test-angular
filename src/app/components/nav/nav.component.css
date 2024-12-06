@@ -14,5 +14,5 @@
 .main-menu__link:hover,
 .main-menu__link_active {
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 5px;
 }

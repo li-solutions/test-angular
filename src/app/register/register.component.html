@@ -1,7 +1,10 @@
 <div class="container">
-  <h1>Login</h1>
+  <h1>Register</h1>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <input type="text" placeholder="Username" formControlName="username" />
+    </div>
     <div>
       <input type="text" placeholder="Email" formControlName="email" />
     </div>
@@ -11,9 +14,10 @@
         placeholder="Password"
         formControlName="password"
       />
+      <p class="note">* Min 6 symbols</p>
     </div>
     <div>
-      <button type="submit">Sign In</button>
+      <button type="submit">Sign Up</button>
     </div>
   </form>
   <div *ngIf="errorMessage()">

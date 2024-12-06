@@ -7,7 +7,7 @@
     </div>
 
     <ng-template #usersResultContent>
-      <div *ngIf="usersErrorMessage() !== null; else usersContent">
+      <div *ngIf="usersErrorMessage(); else usersContent">
         <p>{{ usersErrorMessage() }}</p>
       </div>
     </ng-template>
@@ -42,7 +42,7 @@
         </li>
       </ul>
       <div *ngIf="posts().length !== postsTotalCount()">
-        <button (click)="loadMorePosts()" class="load-more">Load More</button>
+        <button (click)="loadMorePosts()">Load More</button>
       </div>
     </div>
     <p *ngIf="posts().length === 0 && !postsAreLoading()">

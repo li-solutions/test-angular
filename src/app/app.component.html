@@ -1,5 +1,8 @@
 <header>
-  <app-nav />
+  <div class="container">
+    <app-nav />
+    <span>{{ authService.currentUser()?.username }}</span>
+  </div>
 </header>
 <main>
   <router-outlet />

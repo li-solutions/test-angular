@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -12,14 +16,54 @@ body {
 
 header {
   background: #4287f5;
+  color: #fff;
   padding: 16px 0;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
 }
 
 h1 {
   color: #4287f5;
+  text-align: center;
 }
 
 img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
+}
+
+form {
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+}
+
+button {
+  background: #4287f5;
+  border: none;
+  color: #fff;
+  padding: 12px 16px;
+  min-width: 500px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto;
+}
+
+.error {
+  color: #ff0000;
+  text-align: center;
+}
+
+.note {
+  margin-top: 0;
 }

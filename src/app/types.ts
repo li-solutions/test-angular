@@ -23,3 +23,7 @@ export type User = {
     bs: string;
   };
 };
+export type AuthUser = {
+  email: string;
+  username: string;
+};

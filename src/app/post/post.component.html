@@ -4,8 +4,8 @@
   </div>
 
   <ng-template #resultContent>
-    <div *ngIf="errorMessage() !== null; else postContent">
-      <p>{{ errorMessage() }}</p>
+    <div *ngIf="errorMessage(); else postContent">
+      <p class="error">{{ errorMessage() }}</p>
     </div>
   </ng-template>
 

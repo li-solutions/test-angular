@@ -1,4 +1,4 @@
-export enum Constants {
-  USER,
-  ADMIN,
+export enum UserRoles {
+  USER = 'user',
+  ADMIN = 'admin',
 }
