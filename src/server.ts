@@ -15,7 +15,7 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
-const port = 3000;
+const port = process.env['PORT'] ? Number(process.env['PORT']) : 3000;
 
 const firebaseApp = initializeApp({
   credential: cert({
