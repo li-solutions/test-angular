@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "server": "tsx watch src/server.ts",
-    "build": "ng build && tsc",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:test-angular": "node dist/test-angular/server/server.mjs"
