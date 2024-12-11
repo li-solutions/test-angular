@@ -1,10 +1,11 @@
 {
+  "buildCommand": "ng build && tsc",
   "builds": [
     { "src": "src/server.ts", "use": "@vercel/node" },
     { "src": "dist/test-angular/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "api/$1" },
+    { "src": "/api/(.*)", "dest": "src/server.ts" },
     { "src": "/(.*)", "dest": "dist/test-angular/$1" }
   ]
 }
