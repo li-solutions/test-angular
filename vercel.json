@@ -1,0 +1,10 @@
+{
+  "builds": [
+    { "src": "src/server.ts", "use": "@vercel/node" },
+    { "src": "dist/<angular-project-name>/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/$1" },
+    { "src": "/(.*)", "dest": "dist/<angular-project-name>/$1" }
+  ]
+}
