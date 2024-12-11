@@ -5,5 +5,13 @@
   </div>
 </header>
 <main>
-  <router-outlet />
+  <div
+    class="loading-container"
+    *ngIf="authService.currentUser() === undefined; else pageContent"
+  >
+    <div class="loading-speeding-wheel"></div>
+  </div>
+  <ng-template #pageContent>
+    <router-outlet />
+  </ng-template>
 </main>

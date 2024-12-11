@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { AuthService } from '../../auth.service';
-import { UserRoles } from '../../constants';
+import { Routes, UserRoles } from '../../constants';
 
 @Component({
   selector: 'app-nav',
@@ -23,6 +23,17 @@ export class NavComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.stateChangingIsLoading.set(true);
+    this.authService.logout().subscribe({
+      next: async () => {
+        await this.router.navigateByUrl(Routes.HOME);
+        setTimeout(
+          () => this.authService.stateChangingIsLoading.set(false),
+          1000
+        );
+      },
+    });
   }
+
+  protected readonly Routes = Routes;
 }

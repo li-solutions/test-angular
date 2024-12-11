@@ -16,18 +16,13 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   setUserRole(uuid: string, role: UserRoles) {
-    return this.http
-      .post(
-        this.setUserRoleUrl,
-        { uuid, role },
-        {
-          observe: 'response',
-        }
-      )
-      .subscribe({
-        next: (response) => console.log('Response received:', response),
-        error: (error) => console.error('Error occurred:', error),
-      });
+    return this.http.post(
+      this.setUserRoleUrl,
+      { uuid, role },
+      {
+        observe: 'response',
+      }
+    );
   }
 
   getUsers(params: SearchParams = {}): Observable<HttpResponse<User[]>> {

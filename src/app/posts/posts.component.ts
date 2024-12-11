@@ -29,16 +29,17 @@ export class PostsComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.queryParamMap.subscribe((params) => {
       const userIdFromUrl = params.get('userId');
 
-      if (userIdFromUrl) {
-        this.selectedUserId.set(userIdFromUrl);
-      }
+      this.selectedUserId.set(userIdFromUrl || '');
+      this.posts.set([]);
+      this.postsStartIndex = 0;
+      this.fetchPosts();
     });
 
-    Promise.allSettled([this.fetchPosts(), this.fetchUsers()]);
+    this.fetchUsers();
   }
 
   private fetchPosts() {
@@ -53,7 +54,8 @@ export class PostsComponent implements OnInit {
       .subscribe({
         next: (response) => {
           this.postsAreLoading.set(false);
-          this.posts.set([...this.posts(), ...(response.body ?? [])]);
+          this.posts.update((posts) => [...posts, ...(response.body ?? [])]);
+          console.log(this.posts().length);
           const total = response.headers.get('X-Total-Count');
           this.postsTotalCount.set(total ? +total : 0);
         },
@@ -65,12 +67,12 @@ export class PostsComponent implements OnInit {
       });
   }
 
-  loadMorePosts(): void {
+  loadMorePosts() {
     this.postsStartIndex += this.postsLimit;
     this.fetchPosts();
   }
 
-  filterPosts(): void {
+  filterPosts() {
     const userId = this.selectedUserId();
 
     if (userId) {
@@ -84,10 +86,6 @@ export class PostsComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     }
-
-    this.posts.set([]);
-    this.postsStartIndex = 0;
-    this.fetchPosts();
   }
 
   private fetchUsers() {

@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { UserRoles } from './constants';
 import {
   Auth,
@@ -10,17 +10,32 @@ import {
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { AuthUser } from './types';
+import { User } from '@firebase/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private firebaseAuth = inject(Auth);
-  user$ = user(this.firebaseAuth);
-  currentUser = signal<AuthUser | null | undefined>(undefined);
-  userRole = signal<UserRoles | null>(null);
+  user$: Observable<User | null> = user(this.firebaseAuth);
+  currentUser: WritableSignal<AuthUser | null | undefined> = signal(undefined);
+  stateChangingIsLoading: WritableSignal<boolean> = signal(false);
 
-  constructor() {}
+  constructor() {
+    this.user$.subscribe(async (user) => {
+      if (user) {
+        const idTokenResult = await user.getIdTokenResult();
+
+        this.currentUser.set({
+          email: user.email!,
+          username: user.displayName!,
+          role: idTokenResult.claims['role'] as UserRoles | null,
+        });
+      } else {
+        this.currentUser.set(null);
+      }
+    });
+  }
 
   register(
     email: string,
@@ -55,11 +70,11 @@ export class AuthService {
   }
 
   hasRole(expectedRoles: UserRoles[]) {
-    const role = this.userRole();
+    const role = this.currentUser()?.role;
 
     return (
-      (role === null && expectedRoles.length === 0) ||
-      (role !== null && expectedRoles.includes(role))
+      (this.currentUser() === null && expectedRoles.length === 0) ||
+      (!!role && expectedRoles.includes(role))
     );
   }
 }

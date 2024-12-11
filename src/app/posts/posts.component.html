@@ -14,7 +14,6 @@
 
     <ng-template #usersContent>
       <select
-        class="users-select"
         [(ngModel)]="selectedUserId"
         (ngModelChange)="filterPosts()"
         *ngIf="users().length > 0"

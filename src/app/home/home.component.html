@@ -1,4 +1,21 @@
 <div class="container">
   <h1>Home page</h1>
-  <img ngSrc="homepage.jpg" width="916" height="264" priority />
+  <img ngSrc="homepage.jpg" width="916" height="264" priority alt="" />
+
+  <div *ngIf="authService.currentUser()?.role === UserRoles.ADMIN">
+    <h2>Update user role</h2>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <input placeholder="Uuid" formControlName="uuid" />
+      <select formControlName="role">
+        <option value="">Select role</option>
+        <option [value]="UserRoles.ADMIN">Admin</option>
+        <option [value]="UserRoles.USER">User</option>
+      </select>
+      <button type="submit">Update</button>
+    </form>
+    <div *ngIf="errorMessage()">
+      <p class="error">{{ errorMessage() }}</p>
+    </div>
+  </div>
 </div>

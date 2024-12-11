@@ -1,11 +1,13 @@
+import '@angular/compiler';
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine, isMainModule } from '@angular/ssr/node';
 import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bootstrap from './main.server';
-import * as admin from 'firebase-admin';
-import { firestore } from 'firebase-admin';
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getAuth } from 'firebase-admin/auth';
+import { environment } from './environments/environment';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -13,11 +15,16 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
-//
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault(),
-//   databaseURL: 'test-angular-cee03.firebaseapp.com',
-// });
+const port = 3000;
+
+const firebaseApp = initializeApp({
+  credential: cert({
+    projectId: environment.firebaseAdminSdk.projectId,
+    clientEmail: environment.firebaseAdminSdk.clientEmail,
+    privateKey: environment.firebaseAdminSdk.privateKey,
+  }),
+});
+const auth = getAuth(firebaseApp);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -38,10 +45,9 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.listen(3000, () => {
-  console.log(`Example app listening on port ${3000}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-// app.use(express.urlencoded({ extended: true }));
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -56,20 +62,18 @@ app.listen(3000, () => {
  */
 
 app.get('/api/set-user-role', async (req, res) => {
-  console.log('test1');
   return res.json({ message: `test` });
 });
 
 app.post('/api/set-user-role', async (req, res) => {
-  console.log(req.body);
   const { uuid, role } = req.body;
-  console.log('test');
+
   if (!uuid || !role) {
     return res.status(400).json({ error: 'UUID and role are required.' });
   }
 
-  // await admin.auth().setCustomUserClaims(uid, { role });
-  console.log('test1');
+  await auth.setCustomUserClaims(uuid, { role });
+
   return res.json({ message: `Role ${role} assigned to user ${uuid}.` });
 });
 

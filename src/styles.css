@@ -27,7 +27,8 @@ header .container {
   gap: 16px;
 }
 
-h1 {
+h1,
+h2 {
   color: #4287f5;
   text-align: center;
 }
@@ -57,6 +58,10 @@ button {
   cursor: pointer;
   display: block;
   margin: 20px auto;
+}
+
+select {
+  padding: 8px;
 }
 
 .error {

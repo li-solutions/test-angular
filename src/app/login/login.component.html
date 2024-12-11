@@ -2,19 +2,14 @@
   <h1>Login</h1>
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div>
-      <input type="text" placeholder="Email" formControlName="email" />
-    </div>
-    <div>
-      <input
-        type="password"
-        placeholder="Password"
-        formControlName="password"
-      />
-    </div>
-    <div>
-      <button type="submit">Sign In</button>
-    </div>
+    <input type="email" placeholder="Email" formControlName="email" required />
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      required
+    />
+    <button type="submit">Sign In</button>
   </form>
   <div *ngIf="errorMessage()">
     <p class="error">{{ errorMessage() }}</p>

@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { NgIf } from '@angular/common';
+import { Routes } from '../constants';
 
 @Component({
   selector: 'app-login',
@@ -17,19 +18,28 @@ export class LoginComponent {
   http = inject(HttpClient);
   router = inject(Router);
   form = this.fb.nonNullable.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
   errorMessage: WritableSignal<string | null> = signal(null);
 
-  onSubmit(): void {
+  onSubmit() {
+    this.errorMessage.set('');
     const rawForm = this.form.getRawValue();
+
+    this.authService.stateChangingIsLoading.set(true);
     this.authService.login(rawForm.email, rawForm.password).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/');
+      next: async () => {
+        await this.router.navigateByUrl(Routes.HOME);
+        setTimeout(
+          () => this.authService.stateChangingIsLoading.set(false),
+          1000
+        );
       },
       error: (error) => {
+        this.authService.stateChangingIsLoading.set(false);
         this.errorMessage.set('Failed to login');
+        throw error;
       },
     });
   }

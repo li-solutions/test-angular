@@ -1,3 +1,5 @@
+import { UserRoles } from './constants';
+
 export type SearchParams = Record<string, string | undefined>;
 export type Post = { userId: string; id: number; title: string; body: string };
 export type User = {
@@ -26,4 +28,5 @@ export type User = {
 export type AuthUser = {
   email: string;
   username: string;
+  role: UserRoles | null;
 };

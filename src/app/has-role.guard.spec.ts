@@ -1,11 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { ActivatedRouteSnapshot } from '@angular/router';
 
 import { hasRoleGuard } from './has-role.guard';
+import { Subscription } from 'rxjs';
 
 describe('hasRoleGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => hasRoleGuard(...guardParameters));
+  const executeGuard: (route: ActivatedRouteSnapshot) => Subscription = (
+    ...guardParameters
+  ) => TestBed.runInInjectionContext(() => hasRoleGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

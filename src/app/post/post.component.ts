@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { DataService } from '../data.service';
 import { Post } from '../types';
 import { NgIf } from '@angular/common';
@@ -27,7 +21,7 @@ export class PostComponent implements OnInit {
     private dataService: DataService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
       if (!id) {
@@ -40,7 +34,7 @@ export class PostComponent implements OnInit {
     });
   }
 
-  private fetchPost(): void {
+  private fetchPost() {
     if (!this.postId) {
       this.handleError(new Error('No post id'));
       return;
@@ -57,7 +51,7 @@ export class PostComponent implements OnInit {
     });
   }
 
-  private handleError(error: Error): void {
+  private handleError(error: Error) {
     this.loading.set(false);
     this.errorMessage.set('Failed to load post');
     throw error;
