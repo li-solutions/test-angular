@@ -5,6 +5,6 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "api/$1" },
-    { "src": "/(.*)", "dest": "dist/<angular-project-name>/$1" }
+    { "src": "/(.*)", "dest": "dist/test-angular/$1" }
   ]
 }
