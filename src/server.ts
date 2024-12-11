@@ -19,9 +19,9 @@ const port = 3000;
 
 const firebaseApp = initializeApp({
   credential: cert({
-    projectId: environment.firebaseAdminSdk.projectId,
-    clientEmail: environment.firebaseAdminSdk.clientEmail,
-    privateKey: environment.firebaseAdminSdk.privateKey,
+    projectId: environment.firebaseProjectId,
+    clientEmail: environment.firebaseClientEmail,
+    privateKey: environment.firebasePrivateKey,
   }),
 });
 const auth = getAuth(firebaseApp);
