@@ -6,14 +6,14 @@
       "use": "@vercel/static-build"
     },
     {
-      "src": "src/server.ts",
+      "src": "dist/test-angular/server/server.mjs",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/server.ts"
+      "dest": "dist/test-angular/server/server.mjs"
     }
   ]
 }
