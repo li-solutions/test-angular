@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/test-angular/server"
+      "dest": "dist/test-angular/server/server.mjs"
     }
   ]
 }
