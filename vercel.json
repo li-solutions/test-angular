@@ -10,8 +10,8 @@
       "use": "@vercel/static"
     }
   ],
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/dist/test-angular/server/server.mjs" },
-    { "source": "/(.*)", "destination": "/dist/test-angular/browser/index.html" }
+  "routes": [
+    { "src": "^/api/.*", "dest": "dist/test-angular/server/server.mjs" },
+    { "src": "^(?!/api/).*", "dest": "dist/test-angular/browser/index.html" }
   ]
 }
