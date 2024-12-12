@@ -64,7 +64,11 @@ app.post('/api/set-user-role', async (req, res) => {
     return res.status(400).json({ error: 'UUID and role are required.' });
   }
 
-  await auth.setCustomUserClaims(uuid, { role });
+  try {
+    await auth.setCustomUserClaims(uuid, { role });
+  } catch (err) {
+    return res.status(500).json({ error: 'Failed to set user role.' });
+  }
 
   return res.json({ message: `Role ${role} assigned to user ${uuid}.` });
 });
