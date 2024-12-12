@@ -7,13 +7,16 @@
     },
     {
       "src": "src/server.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "distDir": "dist/test-angular/server"
+      }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/server.ts"
+      "dest": "dist/test-angular/server"
     }
   ]
 }
