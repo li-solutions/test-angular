@@ -57,7 +57,7 @@ app.use(express.json());
  * ```
  */
 
-app.post('/api/test', async (req, res) => {
+app.get('/api/test', async (req, res) => {
   return res.json({ message: `test` });
 });
 
