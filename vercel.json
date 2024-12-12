@@ -10,7 +10,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "dist/test-angular/**"
+      "includeFiles": "dist/test-angular/server/**"
     }
   }
 }
