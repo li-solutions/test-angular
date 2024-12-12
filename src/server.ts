@@ -15,7 +15,6 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
-const port = process.env['PORT'] ? Number(process.env['PORT']) : 3000;
 
 const firebaseApp = initializeApp({
   credential: cert({
@@ -45,9 +44,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 /**
  * Example Express Rest API endpoints can be defined here.
