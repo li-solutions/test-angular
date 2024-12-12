@@ -57,6 +57,10 @@ app.use(express.json());
  * ```
  */
 
+app.post('/api/test', async (req, res) => {
+  return res.json({ message: `test` });
+});
+
 app.post('/api/set-user-role', async (req, res) => {
   const { uuid, role } = req.body;
 
