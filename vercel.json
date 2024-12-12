@@ -5,11 +5,11 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api"
+      "destination": "/middleware"
     }
   ],
   "functions": {
-    "api/index.js": {
+    "middleware/index.js": {
       "includeFiles": "dist/test-angular/**"
     }
   }
