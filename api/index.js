@@ -1,3 +1,3 @@
-import * as server from "../dist/test-angular/server/server.mjs";
-
-export default server.app();
+export default import("../dist/test-angular/server/server.mjs").then((module) =>
+  module.app()
+);
