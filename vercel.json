@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/test-angular/server/server.mjs",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/test-angular/browser/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/dist/test-angular/server/server.mjs" },
+    { "source": "/(.*)", "destination": "/dist/test-angular/browser/index.html" }
+  ]
+}
