@@ -55,7 +55,6 @@ export class PostsComponent implements OnInit {
         next: (response) => {
           this.postsAreLoading.set(false);
           this.posts.update((posts) => [...posts, ...(response.body ?? [])]);
-          console.log(this.posts().length);
           const total = response.headers.get('X-Total-Count');
           this.postsTotalCount.set(total ? +total : 0);
         },
