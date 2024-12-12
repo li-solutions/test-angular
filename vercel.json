@@ -9,7 +9,7 @@
     }
   ],
   "functions": {
-    "middleware/index.js": {
+    "api/index.js": {
       "includeFiles": "dist/test-angular/**"
     }
   }
