@@ -1,3 +1,3 @@
-import server from "../dist/test-angular/server/server.mjs";
+import server from "../dist/test-angular/server";
 
 module.exports = server.app();
