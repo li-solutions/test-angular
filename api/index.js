@@ -1,3 +1,5 @@
 import app from "../dist/test-angular/server/server.mjs";
 
-export default app();
+export default (req, res) => {
+  app(req, res);
+};
