@@ -4,12 +4,20 @@
     {
       "src": "src/server.ts",
       "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "src/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "dist/test-angular/browser/index.html"
     }
   ]
 }
