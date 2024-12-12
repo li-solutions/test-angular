@@ -4,14 +4,12 @@
     {
       "src": "dist/test-angular/server/server.mjs",
       "use": "@vercel/node"
-    },
-    {
-      "src": "dist/test-angular/browser/**/*",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "^/api/.*", "dest": "dist/test-angular/server/server.mjs" },
-    { "src": "^(?!/api/).*", "dest": "dist/test-angular/browser/index.html" }
+    {
+      "src": "/api/(.*)",
+      "dest": "dist/test-angular/server/server.mjs"
+    }
   ]
 }
