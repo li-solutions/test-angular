@@ -1,3 +1,3 @@
-const server = import("../dist/test-angular/server/server.mjs");
+import * as server from "../dist/test-angular/server/server.mjs";
 
-module.exports = server.app;
+export default server.app();
