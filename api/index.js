@@ -1,6 +1,3 @@
-async function loadServer() {
-  const serverModule = await import("../dist/test-angular/server/server.mjs");
-  return serverModule.app;
-}
+import server from "../dist/test-angular/server/server";
 
-export default loadServer().then((app) => app());
+module.exports = server.app();
