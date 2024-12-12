@@ -2,11 +2,19 @@
   "version": 2,
   "builds": [
     {
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    },
+    {
       "src": "dist/test-angular/server/server.mjs",
       "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "dist/test-angular/server/server.mjs"
+    },
     {
       "src": "/(.*)",
       "dest": "dist/test-angular/server/server.mjs"
