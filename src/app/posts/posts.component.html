@@ -17,7 +17,7 @@
         [(ngModel)]="selectedUserId"
         (ngModelChange)="filterPosts()"
         *ngIf="users().length > 0"
-        [options]="userOptions"
+        [options]="userOptions()"
       />
     </ng-template>
   </div>

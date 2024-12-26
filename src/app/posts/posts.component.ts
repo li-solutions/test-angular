@@ -22,6 +22,9 @@ export class PostsComponent implements OnInit {
   usersErrorMessage: WritableSignal<string | null> = signal(null);
   usersAreLoading: WritableSignal<boolean> = signal(true);
   selectedUserId: WritableSignal<string> = signal('');
+  userOptions: WritableSignal<{ value: string; label: string }[]> = signal([
+    { value: '', label: 'Select user' },
+  ]);
   private postsStartIndex: number = 0;
   private postsLimit: number = 20;
 
@@ -89,16 +92,6 @@ export class PostsComponent implements OnInit {
     }
   }
 
-  get userOptions() {
-    return [
-      { value: '', label: 'Select user' },
-      ...this.users().map((user) => ({
-        value: user.id,
-        label: user.name,
-      })),
-    ];
-  }
-
   private fetchUsers() {
     this.usersAreLoading.set(true);
 
@@ -106,6 +99,13 @@ export class PostsComponent implements OnInit {
       next: (response) => {
         this.usersAreLoading.set(false);
         this.users.set(response.body ?? []);
+        this.userOptions.update((value) => [
+          ...value,
+          ...this.users().map((user) => ({
+            value: user.id.toString(),
+            label: user.name,
+          })),
+        ]);
       },
       error: (error) => {
         this.usersAreLoading.set(false);

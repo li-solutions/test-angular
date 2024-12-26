@@ -10,10 +10,10 @@
       <p-select
         formControlName="role"
         [options]="[
-          { value: '', label: 'Select role' },
           { value: UserRoles.ADMIN, label: 'Admin' },
           { value: UserRoles.USER, label: 'User' }
         ]"
+        placeholder="Select role"
       />
       <p-button label="Update" type="submit" />
     </form>
