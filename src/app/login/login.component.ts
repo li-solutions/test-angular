@@ -5,10 +5,12 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { NgIf } from '@angular/common';
 import { Routes } from '../constants';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, ButtonModule, InputTextModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

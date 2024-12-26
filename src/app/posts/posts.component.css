@@ -12,8 +12,13 @@
 }
 
 .post__link {
-  color: #4287f5;
+  color: var(--primary-500);
   text-decoration: none;
+}
+
+.my-app-dark .post__link {
+  /*TODO: fix to work*/
+  color: var(--primary-400);
 }
 
 .post__link:hover {

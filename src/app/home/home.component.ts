@@ -4,10 +4,20 @@ import { UserRoles } from '../constants';
 import { DataService } from '../data.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-home',
-  imports: [NgOptimizedImage, NgIf, ReactiveFormsModule],
+  imports: [
+    NgOptimizedImage,
+    NgIf,
+    ReactiveFormsModule,
+    ButtonModule,
+    InputTextModule,
+    Select,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

@@ -6,13 +6,16 @@
     <h2>Update user role</h2>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <input placeholder="Uuid" formControlName="uuid" />
-      <select formControlName="role">
-        <option value="">Select role</option>
-        <option [value]="UserRoles.ADMIN">Admin</option>
-        <option [value]="UserRoles.USER">User</option>
-      </select>
-      <button type="submit">Update</button>
+      <input placeholder="Uuid" formControlName="uuid" pInputText />
+      <p-select
+        formControlName="role"
+        [options]="[
+          { value: '', label: 'Select role' },
+          { value: UserRoles.ADMIN, label: 'Admin' },
+          { value: UserRoles.USER, label: 'User' }
+        ]"
+      />
+      <p-button label="Update" type="submit" />
     </form>
     <div *ngIf="errorMessage()">
       <p class="error">{{ errorMessage() }}</p>

@@ -1,7 +1,16 @@
 <header>
   <div class="container">
     <app-nav />
-    <span>{{ authService.currentUser()?.username }}</span>
+    <div class="info">
+      <div class="switcher">
+        <span>Dark mode</span>
+        <p-toggleswitch
+          [(ngModel)]="isDarkMode"
+          (ngModelChange)="toggleDarkMode()"
+        />
+      </div>
+      <span>{{ authService.currentUser()?.username }}</span>
+    </div>
   </div>
 </header>
 <main>

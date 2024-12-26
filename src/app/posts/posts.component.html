@@ -13,16 +13,12 @@
     </ng-template>
 
     <ng-template #usersContent>
-      <select
+      <p-select
         [(ngModel)]="selectedUserId"
         (ngModelChange)="filterPosts()"
         *ngIf="users().length > 0"
-      >
-        <option value="">Select user</option>
-        <option *ngFor="let user of users()" [value]="user.id">
-          {{ user.name }}
-        </option>
-      </select>
+        [options]="userOptions"
+      />
     </ng-template>
   </div>
 
@@ -41,7 +37,7 @@
         </li>
       </ul>
       <div *ngIf="posts().length !== postsTotalCount()">
-        <button (click)="loadMorePosts()">Load More</button>
+        <p-button label="Load More" type="button" (click)="loadMorePosts()" />
       </div>
     </div>
     <p *ngIf="posts().length === 0 && !postsAreLoading()">

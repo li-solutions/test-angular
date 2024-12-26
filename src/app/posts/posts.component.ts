@@ -4,10 +4,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Post, User } from '../types';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-posts',
-  imports: [NgFor, NgIf, RouterLink, FormsModule],
+  imports: [NgFor, NgIf, RouterLink, FormsModule, ButtonModule, Select],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })
@@ -85,6 +87,16 @@ export class PostsComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
     }
+  }
+
+  get userOptions() {
+    return [
+      { value: '', label: 'Select user' },
+      ...this.users().map((user) => ({
+        value: user.id,
+        label: user.name,
+      })),
+    ];
   }
 
   private fetchUsers() {

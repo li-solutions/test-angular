@@ -7,17 +7,25 @@
       placeholder="Username"
       formControlName="username"
       required
+      pInputText
     />
-    <input type="email" placeholder="Email" formControlName="email" required />
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+      required
+      pInputText
+    />
     <input
       type="password"
       placeholder="Password"
       formControlName="password"
       required
       minlength="6"
+      pInputText
     />
     <p class="note">* Min 6 symbols</p>
-    <button type="submit">Sign Up</button>
+    <p-button label="Sign Up" type="submit" />
   </form>
   <div *ngIf="errorMessage()">
     <p class="error">{{ errorMessage() }}</p>
