@@ -1,0 +1,9 @@
+.table-head--inner {
+display: flex;
+  gap: 8px;
+  min-width: 115px;
+  align-items: center;
+}
+.table-row:hover {
+  background-color: var(--p-content-hover-background) !important;
+}

@@ -10,6 +10,7 @@
         />
       </div>
       <span>{{ authService.currentUser()?.username }}</span>
+      <app-avatar  [userName]= authService.currentUser()?.username></app-avatar>
     </div>
   </div>
 </header>

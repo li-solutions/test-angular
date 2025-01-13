@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { PageUnavailableComponent } from './page-unavailable/page-unavailable.component';
 import { PostComponent } from './post/post.component';
 import { RegisterComponent } from './register/register.component';
+import { DataGridComponent } from './data-grid/data-grid.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,10 @@ export const routes: Routes = [
   {
     path: RoutesEnum.UNAVAILABLE,
     component: PageUnavailableComponent,
+  },
+  {
+    path: RoutesEnum.DATA_GRID,
+    component: DataGridComponent,
   },
   { path: '**', component: PageNotFoundComponent },
 ];

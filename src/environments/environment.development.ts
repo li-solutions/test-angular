@@ -10,4 +10,6 @@ export const environment = {
   firebaseStorageBucket: 'test-angular-cee03.firebasestorage.app',
   firebaseMessagingSenderId: '941153667816',
   firebaseAppId: '1:941153667816:web:34a42d05987b34da63975d',
+  supabaseURL:'https://cbupwjlhvyjvrujwbeeo.supabase.co',
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNidXB3amxodnlqdnJ1andiZWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYxNzI3NTcsImV4cCI6MjA1MTc0ODc1N30.EnpldD8Nxn8zE6jyeMIU2WchGsfvsYXrzAmpdKsqIfg'
 };

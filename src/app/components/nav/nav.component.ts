@@ -3,12 +3,13 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../auth.service';
 import { Routes, UserRoles } from '../../constants';
-
+import { AvatarModule } from 'primeng/avatar';
 @Component({
   selector: 'app-nav',
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, RouterLinkActive, NgIf, AvatarModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
+  standalone:true
 })
 export class NavComponent {
   constructor(public authService: AuthService, private router: Router) {}
