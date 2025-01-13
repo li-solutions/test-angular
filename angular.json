@@ -35,7 +35,10 @@
             "ssr": {
               "entry": "src/server.ts"
             },
-            "externalDependencies":[""]
+            "externalDependencies":[""],
+            "allowedCommonJsDependencies": [
+              "supabase"
+            ]
           },
           "configurations": {
             "production": {
@@ -43,7 +46,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
