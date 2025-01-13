@@ -10,4 +10,8 @@ export enum Routes {
   POSTS = 'posts',
   UNAVAILABLE = '403',
   NOT_FOUND = '404',
+  DATA_GRID = 'data-grid',
+}
+export enum Tables {
+  baselFull = 'BaselFullTable'
 }

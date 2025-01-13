@@ -1,0 +1,29 @@
+<div class="container">
+  <p-table [value]="data"
+           [sortField]="sortField"
+           [sortOrder]="sortOrder"
+           (onSort)="onSort($event)"
+           [paginator]="true"
+           [rows]="15"
+           [globalFilterFields]="['cloudCoverHigh', 'cloudCoverLow', 'cloudCoverMedium', 'meanSeaLevelPressure']"
+           size="large"
+           stripedRows>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols" pSortableColumn="{{col.field}}">
+          <div class="table-head--inner">
+            {{ col.header }}
+            <p-sortIcon field="{{ col.field }}"/>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr class="table-row">
+        <td *ngFor="let col of cols">
+          {{ formatCellValue(col.field, row[col.field]) }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

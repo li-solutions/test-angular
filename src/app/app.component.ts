@@ -13,12 +13,14 @@ import { PrimeNG } from 'primeng/config';
 import { FilterMatchMode } from 'primeng/api';
 import { ToggleSwitch } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, NgIf, ToggleSwitch, FormsModule],
+  imports: [RouterOutlet, NavComponent, NgIf, ToggleSwitch, FormsModule, AvatarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  standalone: true
 })
 export class AppComponent implements OnInit {
   authService = inject(AuthService);

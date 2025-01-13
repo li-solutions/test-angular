@@ -11,6 +11,15 @@
     </li>
     <li>
       <a
+        [routerLink]="Routes.DATA_GRID"
+        routerLinkActive="main-menu__link_active"
+
+        class="main-menu__link"
+        >Data</a
+      >
+    </li>
+    <li>
+      <a
         *ngIf="canAccessPosts"
         [routerLink]="Routes.POSTS"
         routerLinkActive="main-menu__link_active"
@@ -38,4 +47,5 @@
       >
     </li>
   </ul>
+
 </nav>
